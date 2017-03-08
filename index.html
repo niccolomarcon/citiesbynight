@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    
+    <meta name="twitter:card" content="">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+    
+    <link rel="publisher" href="">
+    
+    <meta name="theme-color" content="">
+    <meta name="msapplication-navbutton-color" content="">
+    <meta name="apple-mobile-web-app-status-bar-style" content="">
+    
+    <title>Cities by night</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.9.0/tingle.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lobster" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        position: relative;
+      }
+      .title {
+        margin: 32px auto;
+      }
+      .title h1, .title h2 {
+        text-align: center;
+        margin: 0;
+      }
+      .title h1 {
+        font-size: 4em;
+        margin-top: 1em;
+        font-family: 'Lobster', cursive;
+        margin: 0;
+      }
+      .title h2 {
+        font-family: sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        color: #ccc;
+        font-size: 1.3em;
+      }
+      .postcard {
+        display: inline-block;
+        background-color: black;
+        width: 360px;
+        height: 255px;
+        border-radius: 4px;
+        position: relative;
+        box-shadow: 5px 5px 20px -5px rgba(0,0,0,0.75);
+        transition: transform .5s;
+        margin: 23.5px calc((100vw - 1080px) / 6);
+      }
+      .postcard h2 {
+        font-size: 1.5em;
+        font-family: 'Bree Serif', serif;
+        color: #FFEB3B;
+        margin: 0;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+      .postcard h2:after {
+        content: " by night";
+      }
+      .postcard:hover {
+        transform: scale(1.1, 1.1);
+        cursor: pointer;
+      }
+      audio {
+        display: none;
+      }
+      .tingle-modal-box__content {
+        font-family: sans-serif;
+      }
+      .tingle-modal-box__content h3 {
+        font-weight: bold;
+        font-size: 2em;
+        margin-bottom: 0px;
+      }
+      .twitter-share-button {
+        transform: translateY(4px);
+      }
+      .emoji {
+        width: 15px;
+      }
+      @media screen and (max-width: 1220px) {
+        #cities {
+          padding-left: calc((100vw - 814px) / 2);
+        }
+        .postcard {
+          margin: 23.5px;
+        }
+      }
+      @media screen and (max-width: 820px) {
+        #cities {
+          padding-left: calc((100vw - 360px) / 2);
+        }
+        .postcard {
+          margin: 23.5px 0;
+        }
+      }
+    </style>
+
+  </head>
+  <body>
+    
+    <div class="title">
+      <h1>Cities by night</h1>
+      <h2>Buy an awesome postcard!</h2>
+    </div>
+    
+    <div id="cities"></div>
+    
+    <script>
+      window.twttr = (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+        if (d.getElementById(id)) return t;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js, fjs);
+
+        t._e = [];
+        t.ready = function(f) {
+          t._e.push(f);
+        };
+
+        return t;
+      }(document, "script", "twitter-wjs"));
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tingle/0.9.0/tingle.min.js"></script>
+    <script>
+      var modal;
+      
+      function setUpModal() {
+        modal = new tingle.modal();
+        modal.setContent('<h3>Cool idea, huh?</h3><p>Right now I don\'t have the tools (and the money) to mass-produce and sell this postcards, but if you really dig this concept  <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Nice%20#postcards%20@niccolomarcon,%20can%20I%20have%20one%20of%20them%3F%20#CitiesByNight&url=%20">tweet</a>  me and I\'ll see what I can do <img class="emoji" draggable="false" alt="🙂" src="https://twemoji.maxcdn.com/2/72x72/1f642.png"></p>');
+      }
+      
+      function createTemplate(city) {
+        postcard = document.createElement('div');
+        title = document.createElement('h2');
+        
+        title.innerHTML = city;
+        postcard.className = 'postcard';
+        postcard.appendChild(title);
+        
+        postcard.onclick = function() { modal.open(); };
+        
+        return postcard;
+      }
+      
+      function printTemplate(city) {
+        document.getElementById('cities').appendChild(createTemplate(city));
+      }
+      
+      setUpModal();
+      ['Paris', 'London', 'Rome', 'Amsterdam', 'Sydney'].forEach(printTemplate);
+      song = new Audio('jazz.mp3');
+      song.play();
+      song.volume = 0.01;
+    </script>
+    
+  </body>
+</html>
